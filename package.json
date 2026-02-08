@@ -2,7 +2,7 @@
   "name": "@risang/webserver",
   "version": "1.0.0",
   "main": "index.js",
-  "github": "https://github.com/risangnugroho/webserver",
+  "github": "https://github.com/risangmyid/webserver",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

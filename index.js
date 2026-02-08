@@ -356,6 +356,12 @@ const init = function (options) {
 
         if (tipe.includes('json')) {
 
+            if (error.validation) {
+                const err = error.validation[0];
+
+                return { oke: false, message: err.message }
+            }
+
             return error;
         }
 
