@@ -1,8 +1,8 @@
 {
-  "name": "@risang/webserver",
-  "version": "1.0.0",
+  "name": "risang-webserver",
+  "version": "1.0.0-beta.1",
   "main": "index.js",
-  "github": "https://github.com/risangmyid/webserver",
+  "github": "https://github.com/risangmyid/webserver.git",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
