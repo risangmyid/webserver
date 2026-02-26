@@ -1,12 +1,12 @@
 const fastify = require("fastify");
 const fastifyStatic = require('@fastify/static');
+const ejs = require('ejs');
 
 const { WebSocketServer } = require("ws");
 
 const path = require("path");
 const Router = require('find-my-way');
 const { Server } = require('socket.io');
-const uws = require('uwebsockets');
 
 const wss = new WebSocketServer({ noServer: true });
 const { Readable } = require('stream');
@@ -176,8 +176,6 @@ web.prototype.ws = function (path, cb) {
 
 }
 
-
-
 web.fastify = function (id) {
     if (servers.has(id)) {
         return servers.get(id).fastify;
@@ -224,13 +222,11 @@ web.ws = function (id) {
 
 const servers = new Map();
 
-
 const Web = function (id) {
 
     return servers.get(id);
 
 }
-
 
 const init = function (options) {
     const fst = fastify({
@@ -416,5 +412,8 @@ init.prototype.start = function (cb) {
 };
 
 Web.Init = init;
+Web.ejs = (str, param) => {
+    return ejs.render(str, param || {});
+}
 
 module.exports = Web;
