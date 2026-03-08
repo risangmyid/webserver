@@ -84,8 +84,7 @@ const setTypeResponse = (req, reply) => {
         }
     }
 };
-
-
+/*
 const web = function (options) {
     const $this = this;
 
@@ -135,7 +134,7 @@ const web = function (options) {
     web.servers.set(this.id, {
         port: this.port,
         fastify: fst,
-        // io: io,
+        io: io,
         uws: null,
         ws: Router()
     });
@@ -198,7 +197,6 @@ web.io = function (id) {
 
     for (let [i, dt] of servers.entries()) {
 
-
         if (dt.port == id) {
             return dt.io;
         }
@@ -219,13 +217,12 @@ web.ws = function (id) {
     }
 
 };
-
+*/
 const servers = new Map();
 
 const Web = function (id) {
 
     return servers.get(id);
-
 }
 
 const init = function (options) {
@@ -392,10 +389,15 @@ const init = function (options) {
         return "error " + tipe;
     });
 
+    if( options.socketIO ){
+        this.io = new Server(fst.server);
+
+    }
 
     this.port = options.port || 0;
     this.id = options.id || this.port;
     this.fastify = fst;
+
 
     servers.set(this.id, this);
 
