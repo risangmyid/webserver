@@ -18,53 +18,92 @@ Webserver untuk nodejs. bisa multi port.
 Install my-project with npm
 
 ```bash
-  npm install my-project
-  cd my-project
+  npm install risang-server
 ```
     
-## Environment Variables
-
-To run this project, you will need to add the following environment variables to your .env file
-
-`API_KEY`
-
-`ANOTHER_API_KEY`
-
-
 ## Usage/Examples
 
+Index.js
+
 ```javascript
-import Component from 'my-project'
 
-function App() {
-  return <Component />
-}
+const web = require('risang-webserver');
+const path = require('path');
+
+const main = new web.Init({
+    id: 'MAIN',
+    port: 3006,
+    socketIO: true,
+    jwt: {
+        secret: 'main'
+    },
+    cookie: {
+        secret: 'main'
+    },
+    static: [
+        {
+            root: path.join(process.cwd(), 'assets'),
+            prefix: '/assets/',
+        },
+        {
+            root: path.join(process.cwd(), 'tmp/script'),
+            prefix: '/scripts/',
+            decorateReply: false
+        }
+    ]
+})
+
+const test = new web.Init({
+    id: 'TEST',
+    port: 3008,
+    socketIO: true,
+    jwt: {
+        secret: 'test'
+    },
+    cookie: {
+        secret: 'test'
+    },
+    static: [
+        {
+            root: path.join(process.cwd(), 'assets'),
+            prefix: '/assets/',
+        },
+        {
+            root: path.join(process.cwd(), 'tmp/script'),
+            prefix: '/scripts/',
+            decorateReply: false
+        }
+    ]
+})
+
 ```
 
+Setup File Route:
 
-## Run Locally
+```javascript
 
-Clone the project
+const web = require("risang-webserver");
 
-```bash
-  git clone https://link-to-project
+const main = web("MAIN");
+const fastifyMain = main.fastify;
+
+fastifyMain.get('/', ()=> ...);
+.....
+
+const test = web("TEST");
+const fastifytest = test.fastify;
+
+fastifytest.get('/', ()=> ...);
+.....
+
+
+//Run Server
+main.start((err, addr) => {
+  console.log("main", addr);
+});
+
+test.start((err, addr) => {
+  console.log("test", addr);
+});
+
 ```
-
-Go to the project directory
-
-```bash
-  cd my-project
-```
-
-Install dependencies
-
-```bash
-  npm install
-```
-
-Start the server
-
-```bash
-  npm run start
-```
-
